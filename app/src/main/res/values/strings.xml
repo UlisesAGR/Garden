@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Garden</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="see_all_your_favorite_plants">See all your favorite plants</string>
+    <string name="water_your_plants_on_time_with_this_app">Water your plants on time with this app</string>
+    <string name="login">Login</string>
+    <string name="create">Create</string>
+    <string name="example">example</string>
+    <string name="nice_to_see_you_again">Nice to see you again</string>
+    <string name="welcome_back_a_hava_a_nice_day">Welcome back a hava a nice day!</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="forgot_your_password">Forgot your password</string>
+    <string name="an_email_will_be_sent_to_recover_your_password">An email will be sent to recover your password</string>
+    <string name="retrieve">Retrieve</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="i_agree">I agree to the </string>
+    <string name="not_a_member">"Not a member? "</string>
+    <string name="register_now">Register now</string>
+    <string name="already_have_an_account">"Already have an account? "</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="or_continue_with">Or continue with</string>
+    <string name="_6_character_password">6-character password</string>
+</resources>
