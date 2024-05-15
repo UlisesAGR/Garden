@@ -22,7 +22,7 @@ fun DividerText(
     text: String,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {

@@ -19,7 +19,7 @@ sealed class AuthRoute(val route: String) {
 
 sealed class MainRoute(val route: String) {
     data object Garden : MainRoute(route = "garden")
-    data object List : MainRoute(route = "list")
+    data object Plants : MainRoute(route = "plants")
 }
 
 sealed class DetailRoute(

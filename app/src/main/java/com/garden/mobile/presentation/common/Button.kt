@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -99,7 +98,7 @@ fun ButtonTextColor(
         Text(
             style = MaterialTheme.typography.labelSmall,
             text = buildAnnotatedString {
-                withStyle(style = SpanStyle(color = Color.Black)) {
+                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
                     append(textStart)
                 }
                 withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {

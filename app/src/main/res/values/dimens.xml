@@ -10,11 +10,16 @@
     <dimen name="padding.small">8dp</dimen>
     <dimen name="padding">16dp</dimen>
     <dimen name="padding.big">24dp</dimen>
+    <dimen name="padding.extra">32dp</dimen>
 
     <!--Margin-->
     <dimen name="margin.small">8dp</dimen>
     <dimen name="margin">16dp</dimen>
     <dimen name="margin.big">24dp</dimen>
     <dimen name="margin.extra">32dp</dimen>
+
+    <!--Size-->
+    <dimen name="icon.small">24dp</dimen>
+    <dimen name="icon">32dp</dimen>
 
 </resources>

@@ -3,7 +3,7 @@
     <style name="Theme.Garden" parent="android:Theme.Material.Light.NoActionBar" />
 
     <style name="App.Starting.Theme" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#FFFFFF</item>
+        <item name="windowSplashScreenBackground">#FAFFFB</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/il_logo_light</item>
         <item name="postSplashScreenTheme">@style/Theme.Garden</item>
     </style>

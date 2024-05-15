@@ -30,6 +30,7 @@ import com.garden.mobile.presentation.common.CheckboxTexButton
 import com.garden.mobile.presentation.common.DividerText
 import com.garden.mobile.presentation.common.EmailField
 import com.garden.mobile.presentation.common.PasswordField
+import com.garden.mobile.presentation.common.SocialMediaList
 import com.garden.mobile.presentation.common.TopBarSimple
 
 @Composable
@@ -67,6 +68,11 @@ fun CreateScreen(
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelSmall,
             text = stringResource(R.string.welcome_back_a_hava_a_nice_day),
+        )
+        SocialMediaList(
+            modifier = Modifier.fillMaxWidth(),
+            onFacebook = {},
+            onGoogle = {},
         )
         DividerText(text = stringResource(R.string.or_continue_with))
         EmailField(

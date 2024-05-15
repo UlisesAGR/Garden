@@ -31,6 +31,7 @@ import com.garden.mobile.presentation.common.ButtonTextColor
 import com.garden.mobile.presentation.common.DividerText
 import com.garden.mobile.presentation.common.EmailField
 import com.garden.mobile.presentation.common.PasswordField
+import com.garden.mobile.presentation.common.SocialMediaList
 import com.garden.mobile.presentation.common.TopBarSimple
 
 @Composable
@@ -71,7 +72,6 @@ fun LoginScreen(
             style = MaterialTheme.typography.labelSmall,
             text = stringResource(R.string.welcome_back_a_hava_a_nice_day),
         )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_small)))
         EmailField(
             email,
             imeAction = ImeAction.Next,
@@ -95,6 +95,11 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_small)))
         DividerText(text = stringResource(R.string.or_continue_with))
+        SocialMediaList(
+            modifier = Modifier.fillMaxWidth(),
+            onFacebook = {},
+            onGoogle = {},
+        )
         ButtonTextColor(
             modifier = Modifier.fillMaxWidth(),
             textStart = stringResource(R.string.not_a_member),
