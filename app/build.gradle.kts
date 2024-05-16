@@ -36,12 +36,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-            resValue("string", "app_name", "Garden")
+            resValue("string", "app_name", "My Garden")
         }
         debug {
             isDebuggable = true
             applicationIdSuffix = ".debug"
-            resValue("string", "app_name", "Garden Debug")
+            resValue("string", "app_name", "My Garden Debug")
         }
     }
     compileOptions {

@@ -63,7 +63,6 @@ fun ForgotScreen(
             style = MaterialTheme.typography.labelSmall,
             text = stringResource(R.string.an_email_will_be_sent_to_recover_your_password),
         )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_small)))
         EmailField(
             email,
             imeAction = ImeAction.Done,

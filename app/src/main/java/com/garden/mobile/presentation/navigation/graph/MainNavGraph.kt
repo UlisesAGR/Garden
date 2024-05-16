@@ -4,33 +4,30 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.garden.mobile.presentation.navigation.AuthRoute
 import com.garden.mobile.presentation.navigation.DetailRoute
+import com.garden.mobile.presentation.navigation.Graph
 import com.garden.mobile.presentation.navigation.MainRoute
 import com.garden.mobile.presentation.screen.content.detail.DetailScreen
-import com.garden.mobile.presentation.screen.content.garden.GardenScreen
-import com.garden.mobile.presentation.screen.content.plants.PlantsScreen
+import com.garden.mobile.presentation.screen.content.home.HomeScreen
 
 @Composable
 fun MainNavGraph(
     rootNavController: NavHostController,
-    mainNavController: NavHostController,
+    mainNavController: NavHostController = rememberNavController(),
 ) {
     NavHost(
         navController = mainNavController,
-        startDestination = MainRoute.Garden.route,
+        route = Graph.HOME_GRAPH,
+        startDestination = MainRoute.Home.route,
     ) {
-        composable(route = MainRoute.Garden.route) {
-            GardenScreen(
+        composable(route = MainRoute.Home.route) {
+            HomeScreen(
                 onLogoutClick = {
-                    rootNavController.navigate(AuthRoute.Login.route)
-                }
-            )
-        }
-        composable(route = MainRoute.Plants.route) {
-            PlantsScreen(
-                onPlantClick = { plant ->
-                    DetailRoute.Detail.createRoute(plantId = plant.id)
+                    rootNavController.navigate(AuthRoute.Login.route) {
+                        popUpTo(Graph.HOME_GRAPH) { inclusive = true }
+                    }
                 }
             )
         }

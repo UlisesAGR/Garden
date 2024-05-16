@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.garden.mobile.presentation.navigation.Graph
-import com.garden.mobile.presentation.screen.content.main.MainScreen
 
 @Composable
 fun RootNavGraph(rootNavController: NavHostController = rememberNavController()) {
@@ -16,8 +15,8 @@ fun RootNavGraph(rootNavController: NavHostController = rememberNavController())
         startDestination = Graph.AUTH_GRAPH,
     ) {
         authNavGraph(rootNavController)
-        composable(route = Graph.MAIN_GRAPH) {
-            MainScreen(rootNavController)
+        composable(route = Graph.HOME_GRAPH) {
+            MainNavGraph(rootNavController)
         }
     }
 }

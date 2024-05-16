@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Garden</string>
+
+    <plurals name="watering_next">
+        <item quantity="one">water tomorrow.</item>
+        <item quantity="other">water in %d days.</item>
+    </plurals>
+
     <string name="title_activity_main">MainActivity</string>
     <string name="see_all_your_favorite_plants">See all your favorite plants</string>
     <string name="water_your_plants_on_time_with_this_app">Water your plants on time with this app</string>
@@ -23,4 +29,8 @@
     <string name="terms_and_conditions">Terms and Conditions</string>
     <string name="or_continue_with">Or continue with</string>
     <string name="_6_character_password">6-character password</string>
+    <string name="my_garden">My Garden</string>
+    <string name="plant_list">Plant List</string>
+    <string name="planted">Planted</string>
+    <string name="irrigate">Irrigate</string>
 </resources>

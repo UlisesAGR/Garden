@@ -5,6 +5,7 @@
     <dimen name="space.small">4dp</dimen>
     <dimen name="space">8dp</dimen>
     <dimen name="space.big">16dp</dimen>
+    <dimen name="space.extra">24dp</dimen>
 
     <!--Padding-->
     <dimen name="padding.small">8dp</dimen>
@@ -21,5 +22,8 @@
     <!--Size-->
     <dimen name="icon.small">24dp</dimen>
     <dimen name="icon">32dp</dimen>
+
+    <!--Image-->
+    <dimen name="plant_item_image_height">95dp</dimen>
 
 </resources>

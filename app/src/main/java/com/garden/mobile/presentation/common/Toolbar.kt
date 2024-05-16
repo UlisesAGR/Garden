@@ -26,8 +26,8 @@ fun TopBarSimple(
     Row(modifier = Modifier.fillMaxWidth()) {
         SmallFloatingActionButton(
             onClick = { onClick() },
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
         ) {
             Icon(
                 imageVector = icon,
@@ -39,20 +39,20 @@ fun TopBarSimple(
 
 @Composable
 fun TopBar(
+    modifier: Modifier = Modifier,
     title: String,
-    principalIcon: ImageVector,
-    secondaryIcon: ImageVector,
-    onPrincipalClick: () -> Unit,
-    onSecondaryClick: () -> Unit,
+    icon: ImageVector,
+    onBackClick: () -> Unit,
+    onIconClick: () -> Unit,
 ) {
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = modifier.fillMaxWidth()) {
         SmallFloatingActionButton(
-            onClick = { onPrincipalClick() },
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
+            onClick = { onBackClick() },
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
         ) {
             Icon(
-                imageVector = principalIcon,
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = null,
             )
         }
@@ -62,16 +62,16 @@ fun TopBar(
                 .fillMaxWidth()
                 .align(Alignment.CenterVertically),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
             text = title,
         )
         SmallFloatingActionButton(
-            onClick = { onSecondaryClick() },
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
+            onClick = { onIconClick() },
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
         ) {
             Icon(
-                imageVector = secondaryIcon,
+                imageVector = icon,
                 contentDescription = null,
             )
         }
@@ -83,10 +83,9 @@ fun TopBar(
 private fun PreviewTopBar() {
     TopBar(
         title = stringResource(id = R.string.example),
-        principalIcon = Icons.AutoMirrored.Filled.ArrowBack,
-        secondaryIcon = Icons.Default.AccountCircle,
-        onPrincipalClick = {},
-        onSecondaryClick = {},
+        icon = Icons.Default.AccountCircle,
+        onBackClick = {},
+        onIconClick = {},
     )
 }
 

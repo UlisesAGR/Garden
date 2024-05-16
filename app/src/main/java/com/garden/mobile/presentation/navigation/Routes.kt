@@ -7,7 +7,7 @@ import androidx.navigation.navArgument
 object Graph {
     const val ROOT_GRAPH = "rootGraph"
     const val AUTH_GRAPH = "authGraph"
-    const val MAIN_GRAPH = "mainGraph"
+    const val HOME_GRAPH = "homeGraph"
 }
 
 sealed class AuthRoute(val route: String) {
@@ -18,8 +18,7 @@ sealed class AuthRoute(val route: String) {
 }
 
 sealed class MainRoute(val route: String) {
-    data object Garden : MainRoute(route = "garden")
-    data object Plants : MainRoute(route = "plants")
+    data object Home : MainRoute(route = "garden")
 }
 
 sealed class DetailRoute(

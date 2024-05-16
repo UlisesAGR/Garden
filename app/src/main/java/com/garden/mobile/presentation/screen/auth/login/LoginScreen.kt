@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,11 +30,9 @@ import com.garden.mobile.presentation.common.DividerText
 import com.garden.mobile.presentation.common.EmailField
 import com.garden.mobile.presentation.common.PasswordField
 import com.garden.mobile.presentation.common.SocialMediaList
-import com.garden.mobile.presentation.common.TopBarSimple
 
 @Composable
 fun LoginScreen(
-    onBackClick: () -> Unit,
     onGardenClick: () -> Unit,
     onForgotClick: () -> Unit,
     onCreateClick: () -> Unit,
@@ -44,7 +40,7 @@ fun LoginScreen(
 ) {
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
-    val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = false)
+    val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = true)
 
     Column(
         modifier = Modifier
@@ -55,11 +51,7 @@ fun LoginScreen(
         horizontalAlignment = Alignment.End,
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
-        TopBarSimple(
-            icon = Icons.AutoMirrored.Filled.ArrowBack,
-            onClick = { onBackClick() },
-        )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_small)))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_extra)))
         Text(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
@@ -112,5 +104,5 @@ fun LoginScreen(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewLoginScreen() {
-    LoginScreen(onBackClick = {}, onGardenClick = {}, onForgotClick = {}, onCreateClick = {})
+    LoginScreen(onGardenClick = {}, onForgotClick = {}, onCreateClick = {})
 }

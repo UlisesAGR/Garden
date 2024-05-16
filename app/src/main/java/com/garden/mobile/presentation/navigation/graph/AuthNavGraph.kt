@@ -19,7 +19,9 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
         composable(route = AuthRoute.Welcome.route) {
             WelcomeScreen(
                 onLoginClick = {
-                    rootNavController.navigate(AuthRoute.Login.route)
+                    rootNavController.navigate(AuthRoute.Login.route) {
+                        popUpTo(AuthRoute.Welcome.route) { inclusive = true }
+                    }
                 },
                 onCreateClick = {
                     rootNavController.navigate(AuthRoute.Create.route)
@@ -28,12 +30,9 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
         }
         composable(route = AuthRoute.Login.route) {
             LoginScreen(
-                onBackClick = {
-                    rootNavController.popBackStack()
-                },
                 onGardenClick = {
-                    rootNavController.navigate(Graph.MAIN_GRAPH) {
-                        popUpTo(AuthRoute.Login.route) { inclusive = true }
+                    rootNavController.navigate(Graph.HOME_GRAPH) {
+                        popUpTo(Graph.AUTH_GRAPH) { inclusive = true }
                     }
                 },
                 onForgotClick = {
