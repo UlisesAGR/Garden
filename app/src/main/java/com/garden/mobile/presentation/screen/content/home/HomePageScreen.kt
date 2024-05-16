@@ -13,11 +13,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,6 +22,7 @@ import com.garden.mobile.domian.Plant
 import com.garden.mobile.presentation.screen.content.garden.GardenScreen
 import com.garden.mobile.presentation.screen.content.plants.PlantsScreen
 import com.garden.mobile.ui.utils.HomePages
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -37,27 +34,19 @@ fun HomePageScreen(
         HomePages.Garden,
         HomePages.Plants,
     )
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
     val pagerState = rememberPagerState(pageCount = { tabItems.size })
-    LaunchedEffect(selectedTabIndex) {
-        pagerState.animateScrollToPage(selectedTabIndex)
-    }
-    LaunchedEffect(pagerState.currentPage, pagerState.isScrollInProgress) {
-        if (!pagerState.isScrollInProgress) {
-            selectedTabIndex = pagerState.currentPage
-        }
-    }
     Column(modifier = Modifier.padding(innerPadding)) {
+        val coroutineScope = rememberCoroutineScope()
         TabRow(
             containerColor = MaterialTheme.colorScheme.background,
-            selectedTabIndex = selectedTabIndex,
+            selectedTabIndex = pagerState.currentPage,
         ) {
             tabItems.forEachIndexed { index, page ->
                 val title = stringResource(id = page.titleResId)
                 Tab(
                     unselectedContentColor = MaterialTheme.colorScheme.primary,
-                    selected = index == selectedTabIndex,
-                    onClick = { selectedTabIndex = index },
+                    selected = pagerState.currentPage == index,
+                    onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
                     text = { Text(text = title) },
                     icon = {
                         Icon(
@@ -75,6 +64,11 @@ fun HomePageScreen(
         ) { index ->
             when (tabItems[index]) {
                 HomePages.Garden -> GardenScreen(
+                    onAddPlantClick = {
+                        coroutineScope.launch {
+                            pagerState.scrollToPage(page = 2)
+                        }
+                    },
                     onPlantClick = { plant ->
                         onPlantClick(plant)
                     }

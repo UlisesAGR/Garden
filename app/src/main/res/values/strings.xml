@@ -38,4 +38,6 @@
     <string name="plant_list">Plant List</string>
     <string name="planted">Planted</string>
     <string name="irrigate">Irrigate</string>
+    <string name="garden_empty">Your garden is empty</string>
+    <string name="add_plant">Add plant</string>
 </resources>
