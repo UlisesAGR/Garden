@@ -12,10 +12,14 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.garden.mobile.R
+import com.garden.mobile.domian.Plant
 import com.garden.mobile.presentation.common.TopBar
 
 @Composable
-fun HomeScreen(onLogoutClick: () -> Unit) {
+fun HomeScreen(
+    onLogoutClick: () -> Unit,
+    onPlantClick: (Plant) -> Unit,
+) {
     Scaffold(
         modifier = Modifier
             .safeDrawingPadding()
@@ -30,12 +34,12 @@ fun HomeScreen(onLogoutClick: () -> Unit) {
             )
         }
     ) { padding ->
-        HomePageScreen(innerPadding = padding)
+        HomePageScreen(innerPadding = padding, onPlantClick)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun PreviewNavigation() {
-    HomeScreen(onLogoutClick = {})
+    HomeScreen(onLogoutClick = {}, onPlantClick = {})
 }

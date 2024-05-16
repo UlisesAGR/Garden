@@ -12,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.garden.mobile.R
-import com.garden.mobile.domian.getPlants
+import com.garden.mobile.domian.Plant
 import com.garden.mobile.presentation.common.GardenItem
+import com.garden.mobile.ui.utils.getPlants
 
 @Composable
-fun GardenScreen() {
+fun GardenScreen(onPlantClick: (Plant) -> Unit) {
     val gridState = rememberLazyGridState()
     ReportDrawnWhen { gridState.layoutInfo.totalItemsCount > 0 }
     LazyVerticalGrid(
@@ -32,7 +33,7 @@ fun GardenScreen() {
             GardenItem(
                 plant = item,
                 onPlantClick = { plant ->
-                    println("${plant.id}")
+                    onPlantClick(plant)
                 }
             )
         }
@@ -42,5 +43,5 @@ fun GardenScreen() {
 @Preview(showBackground = true)
 @Composable
 private fun PreviewGardenScreen() {
-    GardenScreen()
+    GardenScreen(onPlantClick = {})
 }

@@ -28,6 +28,9 @@ fun MainNavGraph(
                     rootNavController.navigate(AuthRoute.Login.route) {
                         popUpTo(Graph.HOME_GRAPH) { inclusive = true }
                     }
+                },
+                onPlantClick = { plant ->
+                    mainNavController.navigate(DetailRoute.Detail.createRoute(plant.id))
                 }
             )
         }

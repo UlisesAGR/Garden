@@ -20,10 +20,11 @@ import com.garden.mobile.R
 
 @Composable
 fun TopBarSimple(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     onClick: () -> Unit,
 ) {
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = modifier.fillMaxWidth()) {
         SmallFloatingActionButton(
             onClick = { onClick() },
             containerColor = MaterialTheme.colorScheme.secondaryContainer,

@@ -22,13 +22,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.garden.mobile.domian.Plant
 import com.garden.mobile.presentation.screen.content.garden.GardenScreen
 import com.garden.mobile.presentation.screen.content.plants.PlantsScreen
 import com.garden.mobile.ui.utils.HomePages
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomePageScreen(innerPadding: PaddingValues) {
+fun HomePageScreen(
+    innerPadding: PaddingValues,
+    onPlantClick: (Plant) -> Unit,
+) {
     val tabItems = listOf(
         HomePages.Garden,
         HomePages.Plants,
@@ -70,8 +74,17 @@ fun HomePageScreen(innerPadding: PaddingValues) {
             verticalAlignment = Alignment.Top,
         ) { index ->
             when (tabItems[index]) {
-                HomePages.Garden -> GardenScreen()
-                HomePages.Plants -> PlantsScreen(onPlantClick = {})
+                HomePages.Garden -> GardenScreen(
+                    onPlantClick = { plant ->
+                        onPlantClick(plant)
+                    }
+                )
+
+                HomePages.Plants -> PlantsScreen(
+                    onPlantClick = { plant ->
+                        onPlantClick(plant)
+                    }
+                )
             }
         }
     }

@@ -12,13 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
 import com.garden.mobile.R
 import com.garden.mobile.domian.Plant
 
 @Composable
-fun GardenItem(
+fun PlantItem(
     plant: Plant,
     onPlantClick: (Plant) -> Unit,
 ) {
@@ -39,38 +37,10 @@ fun GardenItem(
                 )
                 Text(
                     modifier = Modifier
-                        .padding(vertical = dimensionResource(id = R.dimen.padding))
-                        .align(Alignment.CenterHorizontally),
+                        .align(Alignment.CenterHorizontally)
+                        .padding(dimensionResource(id = R.dimen.padding)),
                     style = MaterialTheme.typography.titleMedium,
                     text = name,
-                )
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    style = MaterialTheme.typography.titleSmall,
-                    text = stringResource(R.string.planted),
-                )
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    style = MaterialTheme.typography.labelSmall,
-                    text = plantDate,
-                )
-                Text(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = dimensionResource(id = R.dimen.padding)),
-                    style = MaterialTheme.typography.titleSmall,
-                    text = stringResource(R.string.irrigate),
-                )
-                Text(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(bottom = dimensionResource(id = R.dimen.padding)),
-                    style = MaterialTheme.typography.labelSmall,
-                    text = pluralStringResource(
-                        id = R.plurals.watering_next,
-                        count = wateringInterval,
-                        wateringInterval,
-                    ),
                 )
             }
         }

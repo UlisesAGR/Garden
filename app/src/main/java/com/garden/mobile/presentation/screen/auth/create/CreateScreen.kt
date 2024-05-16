@@ -49,7 +49,7 @@ fun CreateScreen(
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding))
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.End,
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         TopBarSimple(

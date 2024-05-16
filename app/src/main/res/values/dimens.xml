@@ -25,5 +25,6 @@
 
     <!--Image-->
     <dimen name="plant_item_image_height">95dp</dimen>
+    <dimen name="plant_detail_height">278dp</dimen>
 
 </resources>
