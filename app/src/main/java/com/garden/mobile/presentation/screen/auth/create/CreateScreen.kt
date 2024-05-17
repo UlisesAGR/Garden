@@ -2,10 +2,8 @@ package com.garden.mobile.presentation.screen.auth.create
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
@@ -56,7 +54,6 @@ fun CreateScreen(
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             onClick = { onBackClick() },
         )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_small)))
         Text(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,

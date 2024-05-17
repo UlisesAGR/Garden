@@ -50,7 +50,6 @@ fun ForgotScreen(
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             onClick = { onBackClick() },
         )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_small)))
         Text(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
