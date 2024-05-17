@@ -25,7 +25,7 @@ fun GardenList(
         columns = GridCells.Fixed(2),
         modifier = Modifier.imePadding(),
         state = gridState,
-        contentPadding = PaddingValues(dimensionResource(id = R.dimen.margin)),
+        contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_small)),
     ) {
         items(
             items = plants,

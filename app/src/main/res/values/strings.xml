@@ -41,8 +41,8 @@
     <string name="garden_empty">Your garden is empty</string>
     <string name="add_plant">Add plant</string>
     <string name="message">Message</string>
-    <string name="don_t_forget_to_water_your_plants">Don\'t forget to water your plants</string>
+    <string name="don_t_forget_to_water_your_plants">Don\'t forget to water your plants, thank you!</string>
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
-    <string name="you_re_sure_to_logout">You\'re sure to logout</string>
+    <string name="you_re_sure_to_logout">You\'re sure to logout right now?</string>
 </resources>

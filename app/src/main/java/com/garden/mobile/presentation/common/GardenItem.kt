@@ -24,7 +24,7 @@ fun GardenItem(
 ) {
     ElevatedCard(
         onClick = { onPlantClick(plant) },
-        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding)),
+        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
     ) {
         Column(Modifier.fillMaxWidth()) {

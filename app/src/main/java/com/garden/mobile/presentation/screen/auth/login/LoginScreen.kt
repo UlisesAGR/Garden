@@ -48,7 +48,7 @@ fun LoginScreen(
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding))
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.End,
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_extra)))

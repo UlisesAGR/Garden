@@ -29,7 +29,10 @@ fun ButtonPrimary(
             .height(60.dp),
         onClick = { onClick() },
     ) {
-        Text(text)
+        Text(
+            style = MaterialTheme.typography.titleMedium,
+            text = text,
+        )
     }
 }
 
@@ -47,7 +50,10 @@ fun ButtonPrimaryEnable(
         onClick = { onClick() },
         enabled = enable,
     ) {
-        Text(text)
+        Text(
+            style = MaterialTheme.typography.titleMedium,
+            text = text,
+        )
     }
 }
 
@@ -63,7 +69,10 @@ fun ButtonSecondary(
             .height(60.dp),
         onClick = { onClick() },
     ) {
-        Text(text)
+        Text(
+            style = MaterialTheme.typography.titleMedium,
+            text = text,
+        )
     }
 }
 
