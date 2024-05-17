@@ -67,8 +67,8 @@ fun DetailCard(
                     }
                     FloatingActionButton(
                         onClick = { onFavoriteClick() },
-                        containerColor = MaterialTheme.colorScheme.background,
-                        contentColor = MaterialTheme.colorScheme.onBackground,
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
                     ) {
                         Icon(
                             modifier = Modifier.size(dimensionResource(id = R.dimen.icon)),
