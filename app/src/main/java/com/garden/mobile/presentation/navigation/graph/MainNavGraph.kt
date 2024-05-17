@@ -11,6 +11,10 @@ import com.garden.mobile.presentation.navigation.Graph
 import com.garden.mobile.presentation.navigation.MainRoute
 import com.garden.mobile.presentation.screen.content.detail.DetailScreen
 import com.garden.mobile.presentation.screen.content.home.HomeScreen
+import com.garden.mobile.ui.utils.enterSlideIn
+import com.garden.mobile.ui.utils.exitSlideOut
+import com.garden.mobile.ui.utils.popEnterSlideIn
+import com.garden.mobile.ui.utils.popExitSlideOut
 
 @Composable
 fun MainNavGraph(
@@ -22,7 +26,11 @@ fun MainNavGraph(
         route = Graph.HOME_GRAPH,
         startDestination = MainRoute.Home.route,
     ) {
-        composable(route = MainRoute.Home.route) {
+        composable(
+            route = MainRoute.Home.route,
+            exitTransition = { exitSlideOut() },
+            popEnterTransition = { popEnterSlideIn() },
+        ) {
             HomeScreen(
                 onLogoutClick = {
                     rootNavController.navigate(AuthRoute.Login.route) {
@@ -37,6 +45,8 @@ fun MainNavGraph(
         composable(
             route = DetailRoute.Detail.route,
             arguments = DetailRoute.Detail.navArguments,
+            enterTransition = { enterSlideIn() },
+            popExitTransition = { popExitSlideOut() }
         ) {
             DetailScreen(
                 onBackClick = {
