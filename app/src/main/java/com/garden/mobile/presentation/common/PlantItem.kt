@@ -25,7 +25,7 @@ fun PlantItem(
         modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
     ) {
-        Column(Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxWidth()) {
             plant.apply {
                 LoadImage(
                     modifier = Modifier

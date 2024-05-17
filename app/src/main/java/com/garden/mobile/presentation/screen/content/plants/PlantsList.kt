@@ -1,4 +1,4 @@
-package com.garden.mobile.presentation.screen.content.garden
+package com.garden.mobile.presentation.screen.content.plants
 
 import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,12 +9,12 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.garden.mobile.domian.Plant
-import com.garden.mobile.presentation.common.GardenItem
+import com.garden.mobile.presentation.common.PlantItem
 
 @Composable
-fun GardenList(
+fun PlantsList(
     plants: List<Plant>,
-    onPlantClick: (Plant) -> Unit,
+    onClick: (Plant) -> Unit,
 ) {
     val gridState = rememberLazyGridState()
     ReportDrawnWhen { gridState.layoutInfo.totalItemsCount > 0 }
@@ -27,10 +27,10 @@ fun GardenList(
             items = plants,
             key = { it.id },
         ) { item ->
-            GardenItem(
+            PlantItem(
                 plant = item,
                 onPlantClick = { plant ->
-                    onPlantClick(plant)
+                    onClick(plant)
                 }
             )
         }

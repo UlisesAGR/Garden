@@ -36,11 +36,7 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
                 },
             )
         }
-        composable(
-            route = AuthRoute.Login.route,
-            exitTransition = { exitSlideOut() },
-            popEnterTransition = { popEnterSlideIn() },
-        ) {
+        composable(route = AuthRoute.Login.route) {
             LoginScreen(
                 onGardenClick = {
                     rootNavController.navigate(Graph.HOME_GRAPH) {

@@ -8,6 +8,7 @@
     <dimen name="space.extra">24dp</dimen>
 
     <!--Padding-->
+    <dimen name="padding.small.extra">4dp</dimen>
     <dimen name="padding.small">8dp</dimen>
     <dimen name="padding">16dp</dimen>
     <dimen name="padding.big">24dp</dimen>

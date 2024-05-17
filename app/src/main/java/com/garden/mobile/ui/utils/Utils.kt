@@ -1,5 +1,17 @@
 package com.garden.mobile.ui.utils
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import com.garden.mobile.R
 import com.garden.mobile.domian.Plant
 
 fun getPlant() = Plant(
@@ -24,4 +36,20 @@ fun getPlants() = (1..10).map {
         wateringInterval = 1,
         imageUrl = "https://upload.wikimedia.org/wikipedia/commons/6/67/Mangos_criollos_y_pera.JPG",
     )
+}
+
+@SuppressLint("ModifierFactoryUnreferencedReceiver")
+fun Modifier.shimmer() = composed {
+    val transition = rememberInfiniteTransition(
+        label = stringResource(R.string.shimmer_transition)
+    )
+    val alpha = transition.animateFloat(
+        initialValue = 0.2f, targetValue = 0.9f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = stringResource(R.string.shimmer),
+    ).value
+    background(color = colorResource(id = R.color.shimmer).copy(alpha = alpha))
 }
