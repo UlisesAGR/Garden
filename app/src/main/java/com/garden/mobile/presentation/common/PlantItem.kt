@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import com.garden.mobile.R
-import com.garden.mobile.domian.Plant
+import com.garden.mobile.domian.model.Plant
 
 @Composable
 fun PlantItem(

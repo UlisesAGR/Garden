@@ -1,108 +1,73 @@
 package com.garden.mobile.presentation.screen.auth.login
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.garden.mobile.R
-import com.garden.mobile.presentation.common.ButtonPrimaryEnable
-import com.garden.mobile.presentation.common.ButtonText
-import com.garden.mobile.presentation.common.ButtonTextColor
-import com.garden.mobile.presentation.common.DividerText
-import com.garden.mobile.presentation.common.EmailField
-import com.garden.mobile.presentation.common.PasswordField
-import com.garden.mobile.presentation.common.SocialMediaList
+import com.garden.mobile.presentation.common.BottomSheet
+import com.garden.mobile.presentation.common.ProgressIndicator
+import com.garden.mobile.presentation.navigation.interections.LoginInteractions
+import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginState
+import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    onGardenClick: () -> Unit,
-    onForgotClick: () -> Unit,
-    onCreateClick: () -> Unit,
+    loginInteractions: LoginInteractions,
     viewModel: LoginViewModel = LoginViewModel(),
 ) {
-    val email: String by viewModel.email.observeAsState(initial = "")
-    val password: String by viewModel.password.observeAsState(initial = "")
-    val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = true)
+    val state = viewModel.state.observeAsState(
+        LoginState.Data(
+            email = "",
+            password = "",
+            isLoginEnable = false,
+        )
+    ).value
+    var show by rememberSaveable { mutableStateOf(true) }
 
-    Column(
+    Box(
         modifier = Modifier
-            .safeDrawingPadding()
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.padding))
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.End,
-        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
+            .padding(top = dimensionResource(id = R.dimen.padding)),
     ) {
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_extra)))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge,
-            text = stringResource(R.string.nice_to_see_you_again),
-        )
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.labelSmall,
-            text = stringResource(R.string.welcome_back_a_hava_a_nice_day),
-        )
-        EmailField(
-            email,
-            imeAction = ImeAction.Next,
-            onTextFieldChanged = { viewModel.onLoginChanged(it, password) },
-        )
-        PasswordField(
-            text = stringResource(R.string.password),
-            imeAction = ImeAction.Done,
-            password,
-            onTextFieldChanged = { viewModel.onLoginChanged(email, it) },
-            supportingText = stringResource(R.string._6_character_password),
-        )
-        ButtonText(
-            text = stringResource(R.string.forgot_password),
-            onClick = { onForgotClick() },
-        )
-        ButtonPrimaryEnable(
-            text = stringResource(R.string.login),
-            enable = loginEnable,
-            onClick = { onGardenClick() },
-        )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_small)))
-        DividerText(text = stringResource(R.string.or_continue_with))
-        SocialMediaList(
-            modifier = Modifier.fillMaxWidth(),
-            onFacebook = {},
-            onGoogle = {},
-        )
-        ButtonTextColor(
-            modifier = Modifier.fillMaxWidth(),
-            textStart = stringResource(R.string.not_a_member),
-            textEnd = stringResource(R.string.register_now),
-            onClick = { onCreateClick() },
-        )
+        when (state) {
+            is LoginState.Loading ->
+                ProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                    isLoading = state.isLoading,
+                )
+
+            is LoginState.Data ->
+                LoginForm(
+                    viewModel,
+                    state,
+                    loginInteractions,
+                )
+
+            is LoginState.Error ->
+                BottomSheet(
+                    isShow = show,
+                    icon = Icons.AutoMirrored.Filled.Message,
+                    text = state.message,
+                    onButtonClick = { show = false },
+                )
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun PreviewLoginScreen() {
-    LoginScreen(onGardenClick = {}, onForgotClick = {}, onCreateClick = {})
+    LoginScreen(LoginInteractions(onGardenClick = {}, onForgotClick = {}, onCreateClick = {}))
 }

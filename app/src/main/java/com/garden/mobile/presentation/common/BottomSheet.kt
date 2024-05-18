@@ -29,7 +29,6 @@ fun BottomSheet(
     isShow: Boolean,
     icon: ImageVector,
     text: String,
-    textButton: String,
     onButtonClick: () -> Unit,
 ) {
     if (isShow) {
@@ -61,7 +60,7 @@ fun BottomSheet(
                     text = text,
                 )
                 Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_small)))
-                ButtonPrimary(text = textButton) {
+                ButtonPrimary(text = stringResource(R.string.accept)) {
                     onButtonClick()
                 }
             }
@@ -76,7 +75,6 @@ private fun BottomSheetPreview() {
         isShow = true,
         icon = Icons.AutoMirrored.Filled.Message,
         text = stringResource(id = R.string.example),
-        textButton = stringResource(id = R.string.example),
         onButtonClick = {},
     )
 }

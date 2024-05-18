@@ -15,7 +15,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import com.garden.mobile.R
-import com.garden.mobile.domian.Plant
+import com.garden.mobile.domian.model.Plant
 
 @Composable
 fun GardenItem(

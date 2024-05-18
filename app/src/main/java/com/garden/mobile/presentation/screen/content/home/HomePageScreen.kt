@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.garden.mobile.domian.Plant
+import com.garden.mobile.domian.model.Plant
 import com.garden.mobile.presentation.screen.content.garden.GardenScreen
 import com.garden.mobile.presentation.screen.content.plants.PlantsScreen
 import com.garden.mobile.ui.utils.HomePages
@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomePageScreen(
     innerPadding: PaddingValues,
+    onGardenClick: (Plant) -> Unit,
     onPlantClick: (Plant) -> Unit,
 ) {
     val tabItems = listOf(
@@ -69,15 +70,15 @@ fun HomePageScreen(
                             pagerState.scrollToPage(page = 2)
                         }
                     },
-                    onPlantClick = { plant ->
-                        onPlantClick(plant)
-                    }
+                    onListClick = { plant ->
+                        onGardenClick(plant)
+                    },
                 )
 
                 HomePages.Plants -> PlantsScreen(
-                    onPlantClick = { plant ->
+                    onListClick = { plant ->
                         onPlantClick(plant)
-                    }
+                    },
                 )
             }
         }

@@ -20,8 +20,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        buildConfigField("String", "DATABASE_NAME", "\"database_garden\"")
+        buildConfigField("String", "DATABASE_NAME", "\"database_my_garden\"")
+        buildConfigField("String", "PLANT_DATA_FILENAME", "\"plants.json\"")
+        buildConfigField("String", "BASE_URL", "\"base_url\"")
     }
 
     buildTypes {
@@ -70,29 +71,33 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.lifecycle)
     implementation(libs.org.coroutines)
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.7")
+    implementation(libs.androidx.livedata)
     //ui
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
-    implementation("androidx.compose.foundation:foundation:1.6.7")
+    implementation(libs.androidx.foundation)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     //library
     implementation(libs.bundles.material.desing)
+    implementation(libs.google.fonts)
+    implementation(libs.androidx.splashscreen)
+    implementation(libs.androidx.splashscreen)
+    implementation(libs.bundles.navigation.compose)
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.7")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(libs.bundles.com.retrofit)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.bundles.androidx.room)
+    ksp(libs.room.compiler)
+    implementation(libs.coil.compose)
     //test
     testImplementation(libs.junit)
     testImplementation(libs.org.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.room.testing)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)

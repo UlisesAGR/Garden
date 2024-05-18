@@ -9,7 +9,8 @@ import com.garden.mobile.presentation.navigation.AuthRoute
 import com.garden.mobile.presentation.navigation.DetailRoute
 import com.garden.mobile.presentation.navigation.Graph
 import com.garden.mobile.presentation.navigation.MainRoute
-import com.garden.mobile.presentation.screen.content.detail.DetailScreen
+import com.garden.mobile.presentation.screen.content.detail.garden.GardenDetailScreen
+import com.garden.mobile.presentation.screen.content.detail.plant.PlantsDetailScreen
 import com.garden.mobile.presentation.screen.content.home.HomeScreen
 import com.garden.mobile.ui.utils.enterSlideIn
 import com.garden.mobile.ui.utils.exitSlideOut
@@ -37,18 +38,33 @@ fun MainNavGraph(
                         popUpTo(Graph.HOME_GRAPH) { inclusive = true }
                     }
                 },
+                onGardenClick = { plant ->
+                    mainNavController.navigate(DetailRoute.GardenDetail.createRoute(plant.id))
+                },
                 onPlantClick = { plant ->
-                    mainNavController.navigate(DetailRoute.Detail.createRoute(plant.id))
+                    mainNavController.navigate(DetailRoute.PlantDetail.createRoute(plant.id))
+                },
+            )
+        }
+        composable(
+            route = DetailRoute.GardenDetail.route,
+            arguments = DetailRoute.GardenDetail.navArguments,
+            enterTransition = { enterSlideIn() },
+            popExitTransition = { popExitSlideOut() },
+        ) {
+            GardenDetailScreen(
+                onBackClick = {
+                    mainNavController.navigateUp()
                 }
             )
         }
         composable(
-            route = DetailRoute.Detail.route,
-            arguments = DetailRoute.Detail.navArguments,
+            route = DetailRoute.PlantDetail.route,
+            arguments = DetailRoute.PlantDetail.navArguments,
             enterTransition = { enterSlideIn() },
-            popExitTransition = { popExitSlideOut() }
+            popExitTransition = { popExitSlideOut() },
         ) {
-            DetailScreen(
+            PlantsDetailScreen(
                 onBackClick = {
                     mainNavController.navigateUp()
                 }

@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.garden.mobile.domian.Plant
+import com.garden.mobile.domian.model.Plant
 import com.garden.mobile.presentation.common.PlantItem
 
 @Composable
@@ -18,6 +18,7 @@ fun PlantsList(
 ) {
     val gridState = rememberLazyGridState()
     ReportDrawnWhen { gridState.layoutInfo.totalItemsCount > 0 }
+
     LazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
         state = gridState,
@@ -31,7 +32,7 @@ fun PlantsList(
                 plant = item,
                 onPlantClick = { plant ->
                     onClick(plant)
-                }
+                },
             )
         }
     }

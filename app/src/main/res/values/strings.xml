@@ -48,4 +48,13 @@
     <string name="you_re_sure_to_logout">You\'re sure to logout right now?</string>
     <string name="shimmer">Shimmer</string>
     <string name="shimmer_transition">Shimmer Transition</string>
+
+    <string name="error_red">Check your internet connection</string>
+    <string name="error_timeout">Timed out</string>
+    <string name="error_http">There are problems with the server, try again later</string>
+    <string name="error_generic">At the moment we are unable to perform this action, I will try later</string>
+    <string name="deplaning_from_my_garden">Deplaning from my garden</string>
+    <string name="planing_from_my_garden">Planing in my garden</string>
+    <string name="delete_plant_to_garden_label">Successfully Deplaning</string>
+    <string name="add_plant_to_garden_label">Successfully Planing</string>
 </resources>

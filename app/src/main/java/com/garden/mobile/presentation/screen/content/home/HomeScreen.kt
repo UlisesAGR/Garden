@@ -17,7 +17,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.garden.mobile.R
-import com.garden.mobile.domian.Plant
+import com.garden.mobile.domian.model.Plant
 import com.garden.mobile.presentation.common.BottomSheet
 import com.garden.mobile.presentation.common.Dialog
 import com.garden.mobile.presentation.common.TopBar
@@ -25,6 +25,7 @@ import com.garden.mobile.presentation.common.TopBar
 @Composable
 fun HomeScreen(
     onLogoutClick: () -> Unit,
+    onGardenClick: (Plant) -> Unit,
     onPlantClick: (Plant) -> Unit,
 ) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -45,7 +46,7 @@ fun HomeScreen(
         }
     ) { padding ->
         Box(modifier = Modifier.fillMaxSize()) {
-            HomePageScreen(innerPadding = padding, onPlantClick)
+            HomePageScreen(innerPadding = padding, onGardenClick, onPlantClick)
             Dialog(
                 isShow = showDialog,
                 icon = Icons.AutoMirrored.Filled.Help,
@@ -61,8 +62,7 @@ fun HomeScreen(
                 isShow = showBottomSheet,
                 icon = Icons.AutoMirrored.Filled.Help,
                 text = stringResource(R.string.don_t_forget_to_water_your_plants),
-                textButton = stringResource(R.string.accept),
-                onButtonClick = { showBottomSheet = false }
+                onButtonClick = { showBottomSheet = false },
             )
         }
     }
@@ -71,5 +71,5 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewNavigation() {
-    HomeScreen(onLogoutClick = {}, onPlantClick = {})
+    HomeScreen(onLogoutClick = {}, onGardenClick = {}, onPlantClick = {})
 }

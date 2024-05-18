@@ -34,7 +34,6 @@ fun WelcomeScreen(
             .safeDrawingPadding()
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding)),
-        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
             space = dimensionResource(id = R.dimen.padding_big),
             alignment = Alignment.CenterVertically,
@@ -66,12 +65,12 @@ fun WelcomeScreen(
             ButtonPrimary(
                 modifier = Modifier.weight(1f),
                 text = stringResource(R.string.login),
-                onClick = { onLoginClick() }
+                onClick = { onLoginClick() },
             )
             ButtonSecondary(
                 modifier = Modifier.weight(1f),
                 text = stringResource(R.string.create),
-                onClick = { onCreateClick() }
+                onClick = { onCreateClick() },
             )
         }
     }

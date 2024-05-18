@@ -25,14 +25,22 @@ sealed class DetailRoute(
     val route: String,
     val navArguments: List<NamedNavArgument> = emptyList(),
 ) {
-    data object Detail : DetailRoute(
-        route = "detail/{plantId}",
-        navArguments = listOf(navArgument("plantId") { type = NavType.IntType })
+    data object GardenDetail : DetailRoute(
+        route = "detailGarden/{plantId_garden}",
+        navArguments = listOf(navArgument("plantId_garden") { type = NavType.IntType })
     ) {
-        fun createRoute(plantId: Int) = "detail/${plantId}"
+        fun createRoute(plantId: Int) = "detailGarden/${plantId}"
+    }
+
+    data object PlantDetail : DetailRoute(
+        route = "detailPlant/{plantId_plants}",
+        navArguments = listOf(navArgument("plantId_plants") { type = NavType.IntType })
+    ) {
+        fun createRoute(plantId: Int) = "detailPlant/${plantId}"
     }
 
     companion object {
-        const val PLANT_ID_KEY = "plantId"
+        const val PLANT_ID_GARDEN_KEY = "plantId_garden"
+        const val PLANT_ID_PLANTS_KEY = "plantId_plants"
     }
 }

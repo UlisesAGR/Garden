@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.garden.mobile.presentation.navigation.AuthRoute
 import com.garden.mobile.presentation.navigation.Graph
+import com.garden.mobile.presentation.navigation.interections.LoginInteractions
 import com.garden.mobile.presentation.screen.auth.create.CreateScreen
 import com.garden.mobile.presentation.screen.auth.forgot.ForgotScreen
 import com.garden.mobile.presentation.screen.auth.login.LoginScreen
@@ -38,23 +39,25 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
         }
         composable(route = AuthRoute.Login.route) {
             LoginScreen(
-                onGardenClick = {
-                    rootNavController.navigate(Graph.HOME_GRAPH) {
-                        popUpTo(Graph.AUTH_GRAPH) { inclusive = true }
-                    }
-                },
-                onForgotClick = {
-                    rootNavController.navigate(AuthRoute.Forgot.route)
-                },
-                onCreateClick = {
-                    rootNavController.navigate(AuthRoute.Create.route)
-                },
+                loginInteractions = LoginInteractions(
+                    onGardenClick = {
+                        rootNavController.navigate(Graph.HOME_GRAPH) {
+                            popUpTo(Graph.AUTH_GRAPH) { inclusive = true }
+                        }
+                    },
+                    onForgotClick = {
+                        rootNavController.navigate(AuthRoute.Forgot.route)
+                    },
+                    onCreateClick = {
+                        rootNavController.navigate(AuthRoute.Create.route)
+                    },
+                )
             )
         }
         composable(
             route = AuthRoute.Create.route,
             enterTransition = { enterSlideIn() },
-            popExitTransition = { popExitSlideOut() }
+            popExitTransition = { popExitSlideOut() },
         ) {
             CreateScreen(
                 onBackClick = {
@@ -65,7 +68,7 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
         composable(
             route = AuthRoute.Forgot.route,
             enterTransition = { enterSlideIn() },
-            popExitTransition = { popExitSlideOut() }
+            popExitTransition = { popExitSlideOut() },
         ) {
             ForgotScreen(
                 onBackClick = {
