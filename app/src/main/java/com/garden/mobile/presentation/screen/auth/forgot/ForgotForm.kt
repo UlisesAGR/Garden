@@ -2,12 +2,11 @@ package com.garden.mobile.presentation.screen.auth.forgot
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.MaterialTheme
@@ -30,13 +29,12 @@ fun ForgotForm(
     viewModel: ForgotViewModel,
     state: ForgotState.Data,
     onBackClick: () -> Unit,
+    onForgotClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
-            .safeDrawingPadding()
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.padding))
-            .verticalScroll(rememberScrollState()),
+            .padding(dimensionResource(id = R.dimen.padding)),
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         TopBarSimple(
@@ -60,10 +58,11 @@ fun ForgotForm(
             imeAction = ImeAction.Done,
             onTextFieldChanged = { viewModel.onForgotChanged(it) },
         )
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space)))
         ButtonPrimaryEnable(
             text = stringResource(R.string.retrieve),
             enable = state.isForgotEnable,
-            onClick = {},
+            onClick = { onForgotClick() },
         )
     }
 }

@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import com.garden.mobile.domian.model.Plant
 import com.garden.mobile.presentation.screen.content.garden.GardenScreen
 import com.garden.mobile.presentation.screen.content.plants.PlantsScreen
-import com.garden.mobile.ui.utils.HomePages
+import com.garden.mobile.presentation.navigation.interections.TabInteractions
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -32,8 +32,8 @@ fun HomePageScreen(
     onPlantClick: (Plant) -> Unit,
 ) {
     val tabItems = listOf(
-        HomePages.Garden,
-        HomePages.Plants,
+        TabInteractions.Garden,
+        TabInteractions.Plants,
     )
     val pagerState = rememberPagerState(pageCount = { tabItems.size })
     Column(modifier = Modifier.padding(innerPadding)) {
@@ -52,7 +52,7 @@ fun HomePageScreen(
                     icon = {
                         Icon(
                             painter = painterResource(id = page.drawableResId),
-                            contentDescription = title,
+                            contentDescription = null,
                         )
                     },
                 )
@@ -64,7 +64,7 @@ fun HomePageScreen(
             verticalAlignment = Alignment.Top,
         ) { index ->
             when (tabItems[index]) {
-                HomePages.Garden -> GardenScreen(
+                TabInteractions.Garden -> GardenScreen(
                     onAddPlantClick = {
                         coroutineScope.launch {
                             pagerState.scrollToPage(page = 2)
@@ -75,7 +75,7 @@ fun HomePageScreen(
                     },
                 )
 
-                HomePages.Plants -> PlantsScreen(
+                TabInteractions.Plants -> PlantsScreen(
                     onListClick = { plant ->
                         onPlantClick(plant)
                     },

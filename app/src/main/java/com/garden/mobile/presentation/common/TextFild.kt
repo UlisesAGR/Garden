@@ -23,6 +23,28 @@ import androidx.compose.ui.text.input.VisualTransformation
 import com.garden.mobile.R
 
 @Composable
+fun Field(
+    text: String,
+    label: String,
+    keyboardType: KeyboardType,
+    imeAction: ImeAction,
+    onTextFieldChanged: (String) -> Unit,
+) {
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = text,
+        onValueChange = { onTextFieldChanged(it) },
+        singleLine = true,
+        maxLines = 1,
+        label = { Text(label) },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = keyboardType,
+            imeAction = imeAction,
+        ),
+    )
+}
+
+@Composable
 fun EmailField(
     email: String,
     imeAction: ImeAction,

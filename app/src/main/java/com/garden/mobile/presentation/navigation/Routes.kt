@@ -15,6 +15,7 @@ sealed class AuthRoute(val route: String) {
     data object Login : AuthRoute(route = "login")
     data object Create : AuthRoute(route = "create")
     data object Forgot : AuthRoute(route = "forgot")
+    data object Terms : AuthRoute(route = "terms")
 }
 
 sealed class MainRoute(val route: String) {

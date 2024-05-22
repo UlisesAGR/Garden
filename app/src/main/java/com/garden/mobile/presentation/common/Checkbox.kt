@@ -19,6 +19,7 @@ import com.garden.mobile.R
 fun CheckboxTexButton(
     textStart: String,
     textEnd: String,
+    onClick: () -> Unit,
 ) {
     val (checkedState, onStateChange) = remember { mutableStateOf(true) }
     Row(
@@ -40,7 +41,7 @@ fun CheckboxTexButton(
         ButtonTextColor(
             textStart = textStart,
             textEnd = textEnd,
-            onClick = {},
+            onClick = { onClick() },
         )
     }
 }

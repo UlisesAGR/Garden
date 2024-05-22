@@ -108,7 +108,7 @@ fun ButtonTextColor(
             style = MaterialTheme.typography.labelSmall,
             text = buildAnnotatedString {
                 withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
-                    append(textStart)
+                    append("$textStart ")
                 }
                 withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                     append(textEnd)

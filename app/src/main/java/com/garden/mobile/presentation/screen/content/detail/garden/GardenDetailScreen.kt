@@ -4,7 +4,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Message
@@ -53,18 +54,22 @@ fun GardenDetailScreen(
 
     Column(
         modifier = Modifier
-            .safeDrawingPadding()
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.padding)),
+            .verticalScroll(rememberScrollState()),
     ) {
         TopBarSimple(
+            modifier = Modifier.padding(
+                top = dimensionResource(id = R.dimen.padding),
+                end = dimensionResource(id = R.dimen.padding),
+                start = dimensionResource(id = R.dimen.padding),
+            ),
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             onClick = { onBackClick() },
         )
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = dimensionResource(id = R.dimen.padding)),
+                .padding(dimensionResource(id = R.dimen.padding)),
         ) {
             when (state) {
                 is GardenDetailState.Loading ->

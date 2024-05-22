@@ -3,7 +3,6 @@ package com.garden.mobile.presentation.screen.content.home
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material3.Scaffold
@@ -32,9 +31,7 @@ fun HomeScreen(
     var showBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
-        modifier = Modifier
-            .safeDrawingPadding()
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopBar(
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding)),

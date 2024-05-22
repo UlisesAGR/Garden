@@ -2,7 +2,8 @@ package com.garden.mobile.presentation.screen.auth.login
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.runtime.Composable
@@ -13,12 +14,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.garden.mobile.R
 import com.garden.mobile.presentation.common.BottomSheet
 import com.garden.mobile.presentation.common.ProgressIndicator
 import com.garden.mobile.presentation.navigation.interections.LoginInteractions
+import com.garden.mobile.presentation.navigation.interections.SocialMediaInteractions
 import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginState
 import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginViewModel
 
@@ -39,7 +39,7 @@ fun LoginScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = dimensionResource(id = R.dimen.padding)),
+            .verticalScroll(rememberScrollState())
     ) {
         when (state) {
             is LoginState.Loading ->
@@ -53,6 +53,10 @@ fun LoginScreen(
                     viewModel,
                     state,
                     loginInteractions,
+                    socialMediaInteractions = SocialMediaInteractions(
+                        onFacebookClick = {},
+                        onGmailClick = {},
+                    )
                 )
 
             is LoginState.Error ->

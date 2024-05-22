@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +25,7 @@ import com.garden.mobile.presentation.common.EmailField
 import com.garden.mobile.presentation.common.PasswordField
 import com.garden.mobile.presentation.common.SocialMediaList
 import com.garden.mobile.presentation.navigation.interections.LoginInteractions
+import com.garden.mobile.presentation.navigation.interections.SocialMediaInteractions
 import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginState
 import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginViewModel
 
@@ -36,13 +34,12 @@ fun LoginForm(
     viewModel: LoginViewModel,
     state: LoginState.Data,
     loginInteractions: LoginInteractions,
+    socialMediaInteractions: SocialMediaInteractions,
 ) {
     Column(
         modifier = Modifier
-            .safeDrawingPadding()
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.padding))
-            .verticalScroll(rememberScrollState()),
+            .padding(dimensionResource(id = R.dimen.padding)),
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_extra)))
@@ -86,8 +83,8 @@ fun LoginForm(
         )
         SocialMediaList(
             modifier = Modifier.fillMaxWidth(),
-            onFacebook = {},
-            onGoogle = {},
+            onFacebook = { socialMediaInteractions.onFacebookClick() },
+            onGoogle = { socialMediaInteractions.onGmailClick() },
         )
         ButtonTextColor(
             modifier = Modifier.fillMaxWidth(),

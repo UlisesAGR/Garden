@@ -6,10 +6,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.garden.mobile.presentation.navigation.AuthRoute
 import com.garden.mobile.presentation.navigation.Graph
+import com.garden.mobile.presentation.navigation.interections.CreateInteractions
 import com.garden.mobile.presentation.navigation.interections.LoginInteractions
 import com.garden.mobile.presentation.screen.auth.create.CreateScreen
 import com.garden.mobile.presentation.screen.auth.forgot.ForgotScreen
 import com.garden.mobile.presentation.screen.auth.login.LoginScreen
+import com.garden.mobile.presentation.screen.auth.terms.TermsScreen
 import com.garden.mobile.presentation.screen.auth.welcome.WelcomeScreen
 import com.garden.mobile.ui.utils.enterSlideIn
 import com.garden.mobile.ui.utils.exitSlideOut
@@ -58,11 +60,19 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
             route = AuthRoute.Create.route,
             enterTransition = { enterSlideIn() },
             popExitTransition = { popExitSlideOut() },
+            exitTransition = { exitSlideOut() },
+            popEnterTransition = { popEnterSlideIn() },
         ) {
             CreateScreen(
-                onBackClick = {
-                    rootNavController.popBackStack()
-                },
+                createInteractions = CreateInteractions(
+                    onBackClick = {
+                        rootNavController.popBackStack()
+                    },
+                    onTermsClick = {
+                        rootNavController.navigate(AuthRoute.Terms.route)
+                    },
+                    onCreateClick = {},
+                )
             )
         }
         composable(
@@ -71,6 +81,17 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
             popExitTransition = { popExitSlideOut() },
         ) {
             ForgotScreen(
+                onBackClick = {
+                    rootNavController.popBackStack()
+                },
+            )
+        }
+        composable(
+            route = AuthRoute.Terms.route,
+            enterTransition = { enterSlideIn() },
+            popExitTransition = { popExitSlideOut() },
+        ) {
+            TermsScreen(
                 onBackClick = {
                     rootNavController.popBackStack()
                 },

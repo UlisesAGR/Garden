@@ -10,11 +10,13 @@ class CreateViewModel : ViewModel() {
     val state: LiveData<CreateState> = _state
 
     fun onCreateChanged(
+        name: String,
         email: String,
         password: String,
         confirmPassword: String,
     ) {
         _state.value = CreateState.Data(
+            name,
             email,
             password,
             confirmPassword,

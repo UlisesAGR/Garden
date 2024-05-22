@@ -3,6 +3,7 @@ package com.garden.mobile.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
@@ -12,6 +13,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
@@ -256,7 +258,10 @@ private fun ComposeTheme(
 @Composable
 fun Screen(content: @Composable () -> Unit) {
     ComposeTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
+        Surface(
+            modifier = Modifier.safeDrawingPadding(),
+            color = MaterialTheme.colorScheme.background,
+        ) {
             content()
         }
     }

@@ -2,7 +2,6 @@ package com.garden.mobile.presentation.screen.content.garden
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.runtime.Composable
@@ -12,10 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.garden.mobile.R
 import com.garden.mobile.domian.model.Plant
 import com.garden.mobile.presentation.common.BottomSheet
 import com.garden.mobile.presentation.common.EmptyGarden
@@ -32,11 +29,7 @@ fun GardenScreen(
     val state = viewModel.state.observeAsState(GardenState.Loading(isLoading = true)).value
     var show by rememberSaveable { mutableStateOf(true) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.padding_small)),
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
         when (state) {
             is GardenState.Loading ->
                 GardenShimmerEffect(state.isLoading)

@@ -6,6 +6,7 @@ sealed class CreateState {
     ) : CreateState()
 
     data class Data(
+        val name: String,
         val email: String,
         val password: String,
         val confirmPassword: String,
