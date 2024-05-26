@@ -12,6 +12,27 @@ class ResourceProviderImpl @Inject constructor(
 ) : ResourceProvider {
     private val resource = appContext.resources
 
+    override fun nameEmptyLabel(): String =
+        resource.getString(R.string.name_empty)
+
+    override fun emailEmptyLabel(): String =
+        resource.getString(R.string.email_empty)
+
+    override fun emailInvalidLabel(): String =
+        resource.getString(R.string.email_invalid)
+
+    override fun passwordEmptyLabel(): String =
+        resource.getString(R.string.password_empty)
+
+    override fun passwordInvalidLabel(): String =
+        resource.getString(R.string.password_invalid)
+
+    override fun passwordNeedSame(): String =
+        resource.getString(R.string.passwords_don_t_same)
+
+    override fun acceptTerms(): String =
+        resource.getString(R.string.accept_terms)
+
     override fun errorRedLabel(): String =
         resource.getString(R.string.error_red)
 

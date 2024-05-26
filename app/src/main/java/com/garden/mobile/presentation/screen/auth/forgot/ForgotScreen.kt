@@ -7,14 +7,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.garden.mobile.domian.utils.Constants.EMPTY_STRING
 import com.garden.mobile.presentation.common.BottomSheet
 import com.garden.mobile.presentation.common.ProgressIndicator
 import com.garden.mobile.presentation.screen.auth.forgot.viewmodel.ForgotState
@@ -26,12 +23,11 @@ fun ForgotScreen(
     viewModel: ForgotViewModel = ForgotViewModel(),
 ) {
     val state = viewModel.state.observeAsState(
-        ForgotState.Data(
-            email = "",
+        ForgotState.Form(
+            email = EMPTY_STRING,
             isForgotEnable = false,
         )
     ).value
-    var show by rememberSaveable { mutableStateOf(true) }
 
     Box(
         modifier = Modifier
@@ -45,20 +41,23 @@ fun ForgotScreen(
                     isLoading = state.isLoading,
                 )
 
-            is ForgotState.Data ->
+            is ForgotState.Form ->
                 ForgotForm(
                     viewModel,
                     state,
                     onBackClick,
-                    onForgotClick = {},
                 )
+
+            is ForgotState.Forgot -> {
+                //Add snackBar
+            }
 
             is ForgotState.Error ->
                 BottomSheet(
-                    isShow = show,
+                    isShow = state.status,
                     icon = Icons.AutoMirrored.Filled.Message,
                     text = state.message,
-                    onButtonClick = { show = false },
+                    onButtonClick = { viewModel.onDismissErrorDialog() },
                 )
         }
     }

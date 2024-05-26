@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.garden.mobile.presentation.navigation.AuthRoute
 import com.garden.mobile.presentation.navigation.Graph
+import com.garden.mobile.presentation.navigation.findArgs
 import com.garden.mobile.presentation.navigation.interections.CreateInteractions
 import com.garden.mobile.presentation.navigation.interections.LoginInteractions
 import com.garden.mobile.presentation.screen.auth.create.CreateScreen
@@ -68,10 +69,9 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
                     onBackClick = {
                         rootNavController.popBackStack()
                     },
-                    onTermsClick = {
-                        rootNavController.navigate(AuthRoute.Terms.route)
+                    onTermsClick = { termsHtml ->
+                        rootNavController.navigate(AuthRoute.Terms.createRoute(termsHtml))
                     },
-                    onCreateClick = {},
                 )
             )
         }
@@ -90,11 +90,12 @@ fun NavGraphBuilder.authNavGraph(rootNavController: NavHostController) {
             route = AuthRoute.Terms.route,
             enterTransition = { enterSlideIn() },
             popExitTransition = { popExitSlideOut() },
-        ) {
+        ) { backStackEntry ->
             TermsScreen(
                 onBackClick = {
                     rootNavController.popBackStack()
                 },
+                termsHtml = backStackEntry.findArgs(AuthRoute.TERMS_HTML),
             )
         }
     }

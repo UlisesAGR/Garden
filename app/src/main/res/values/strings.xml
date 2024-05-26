@@ -26,14 +26,13 @@
     <string name="an_email_will_be_sent_to_recover_your_password">An email will be sent to recover your password</string>
     <string name="retrieve">Retrieve</string>
     <string name="create_your_account">Create your account</string>
-    <string name="confirm_password">Confirm password</string>
+    <string name="repeated_password">Repeated password</string>
     <string name="i_agree">I agree to the</string>
     <string name="not_a_member">"Not a member?"</string>
     <string name="register_now">Register now</string>
     <string name="already_have_an_account">"Already have an account? "</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
     <string name="or_continue_with">Or continue with</string>
-    <string name="_6_character_password">6-character password</string>
     <string name="my_garden">My Garden</string>
     <string name="plant_list">Plant List</string>
     <string name="planted">Planted</string>
@@ -49,6 +48,12 @@
     <string name="shimmer">Shimmer</string>
     <string name="shimmer_transition">Shimmer Transition</string>
 
+    <string name="name_empty">Name is Empty</string>
+    <string name="email_empty">Email is Empty</string>
+    <string name="email_invalid">Email is Invalid</string>
+    <string name="password_empty">Password is Empty</string>
+    <string name="password_invalid">Password needs to consist of at least 8 characters</string>
+
     <string name="error_red">Check your internet connection</string>
     <string name="error_timeout">Timed out</string>
     <string name="error_http">There are problems with the server, try again later</string>
@@ -58,4 +63,7 @@
     <string name="delete_plant_to_garden_label">Successfully Deplaning</string>
     <string name="add_plant_to_garden_label">Successfully Planing</string>
     <string name="name">Name</string>
+    <string name="user_created_successful">User created successful</string>
+    <string name="passwords_don_t_same">Passwords don\'t same</string>
+    <string name="accept_terms">You need accept terms</string>
 </resources>

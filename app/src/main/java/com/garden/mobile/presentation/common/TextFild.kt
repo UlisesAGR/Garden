@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,32 +22,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.garden.mobile.R
-
-@Composable
-fun Field(
-    text: String,
-    label: String,
-    keyboardType: KeyboardType,
-    imeAction: ImeAction,
-    onTextFieldChanged: (String) -> Unit,
-) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = text,
-        onValueChange = { onTextFieldChanged(it) },
-        singleLine = true,
-        maxLines = 1,
-        label = { Text(label) },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = keyboardType,
-            imeAction = imeAction,
-        ),
-    )
-}
+import com.garden.mobile.domian.model.ValidationResults
 
 @Composable
 fun EmailField(
     email: String,
+    error: ValidationResults,
     imeAction: ImeAction,
     onTextFieldChanged: (String) -> Unit,
 ) {
@@ -61,16 +42,26 @@ fun EmailField(
             keyboardType = KeyboardType.Email,
             imeAction = imeAction,
         ),
+        isError = error.status,
+        supportingText = {
+            if (error.status && !error.message.isNullOrEmpty()) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.error,
+                    text = error.message,
+                )
+            }
+        },
     )
 }
 
 @Composable
 fun PasswordField(
-    text: String,
-    imeAction: ImeAction,
     password: String,
+    error: ValidationResults,
+    hint: String,
+    imeAction: ImeAction,
     onTextFieldChanged: (String) -> Unit,
-    supportingText: String,
 ) {
     var passwordHidden by rememberSaveable { mutableStateOf(true) }
     OutlinedTextField(
@@ -79,7 +70,7 @@ fun PasswordField(
         onValueChange = { onTextFieldChanged(it) },
         singleLine = true,
         maxLines = 1,
-        label = { Text(text) },
+        label = { Text(hint) },
         visualTransformation = if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
@@ -93,6 +84,15 @@ fun PasswordField(
                 )
             }
         },
-        supportingText = { Text(supportingText) },
+        isError = error.status,
+        supportingText = {
+            if (error.status && !error.message.isNullOrEmpty()) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.error,
+                    text = error.message,
+                )
+            }
+        },
     )
 }

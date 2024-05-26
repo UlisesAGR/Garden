@@ -21,10 +21,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.garden.mobile.R
 import com.garden.mobile.presentation.common.TopBarSimple
 import com.garden.mobile.presentation.common.WebViewPage
-import com.garden.mobile.ui.utils.TERMS
 
 @Composable
-fun TermsScreen(onBackClick: () -> Unit) {
+fun TermsScreen(
+    onBackClick: () -> Unit,
+    termsHtml: String,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,7 +53,7 @@ fun TermsScreen(onBackClick: () -> Unit) {
         Card(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding))) {
             WebViewPage(
                 modifier = Modifier.fillMaxSize(),
-                html = TERMS,
+                html = termsHtml,
             )
         }
     }
@@ -60,5 +62,5 @@ fun TermsScreen(onBackClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTermsScreen() {
-    TermsScreen(onBackClick = {})
+    TermsScreen(onBackClick = {}, termsHtml = "")
 }

@@ -10,7 +10,7 @@ import com.garden.mobile.domian.model.Plant
 import com.garden.mobile.domian.provider.ResourceProvider
 import com.garden.mobile.domian.usecase.garden.AddToGardenUseCase
 import com.garden.mobile.domian.usecase.plants.GetPlantUseCase
-import com.garden.mobile.presentation.navigation.DetailRoute.Companion.PLANT_ID_PLANTS_KEY
+import com.garden.mobile.presentation.navigation.DetailRoute.Companion.PLANT_ID_PLANTS
 import com.garden.mobile.ui.utils.UIComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -24,7 +24,7 @@ class PlantsDetailViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val plantId: Int = savedStateHandle.get<Int>(PLANT_ID_PLANTS_KEY) ?: 0
+    private val plantId: Int = savedStateHandle.get<Int>(PLANT_ID_PLANTS) ?: 0
 
     private val _state = MutableLiveData<PlantsDetailState>()
     val state: LiveData<PlantsDetailState> = _state

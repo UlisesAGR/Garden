@@ -20,6 +20,8 @@ fun getPlants() = (1..10).map {
     )
 }
 
-fun Context.showToast(text: String) {
-    Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+fun Context.showToast(text: String?) {
+    if (!text.isNullOrBlank()) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
 }

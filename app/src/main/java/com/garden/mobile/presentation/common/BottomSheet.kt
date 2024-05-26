@@ -28,7 +28,7 @@ import com.garden.mobile.R
 fun BottomSheet(
     isShow: Boolean,
     icon: ImageVector,
-    text: String,
+    text: String?,
     onButtonClick: () -> Unit,
 ) {
     if (isShow) {
@@ -53,12 +53,14 @@ fun BottomSheet(
                     style = MaterialTheme.typography.titleMedium,
                     text = stringResource(R.string.message),
                 )
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.labelMedium,
-                    text = text,
-                )
+                if (!text.isNullOrBlank()) {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.labelMedium,
+                        text = text,
+                    )
+                }
                 Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_small)))
                 ButtonPrimary(text = stringResource(R.string.accept)) {
                     onButtonClick()

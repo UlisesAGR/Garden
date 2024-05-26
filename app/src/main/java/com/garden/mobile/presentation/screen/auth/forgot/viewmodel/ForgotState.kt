@@ -5,12 +5,15 @@ sealed class ForgotState {
         val isLoading: Boolean = false,
     ) : ForgotState()
 
-    data class Data(
+    data class Form(
         val email: String,
         val isForgotEnable: Boolean,
     ) : ForgotState()
 
+    internal data object Forgot : ForgotState()
+
     internal data class Error(
+        val status: Boolean = false,
         val message: String,
     ) : ForgotState()
 }

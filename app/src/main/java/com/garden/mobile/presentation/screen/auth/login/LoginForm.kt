@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import com.garden.mobile.R
+import com.garden.mobile.domian.model.ValidationResults
 import com.garden.mobile.presentation.common.ButtonPrimaryEnable
 import com.garden.mobile.presentation.common.ButtonText
 import com.garden.mobile.presentation.common.ButtonTextColor
@@ -57,14 +58,15 @@ fun LoginForm(
         )
         EmailField(
             state.email,
+            error = ValidationResults(status = false, message = null),
             imeAction = ImeAction.Next,
             onTextFieldChanged = { viewModel.onLoginChanged(it, state.password) },
         )
         PasswordField(
-            text = stringResource(R.string.password),
-            imeAction = ImeAction.Done,
             state.password,
-            supportingText = stringResource(R.string._6_character_password),
+            error = ValidationResults(status = false, message = null),
+            hint = stringResource(R.string.password),
+            imeAction = ImeAction.Done,
             onTextFieldChanged = { viewModel.onLoginChanged(state.email, it) },
         )
         ButtonText(

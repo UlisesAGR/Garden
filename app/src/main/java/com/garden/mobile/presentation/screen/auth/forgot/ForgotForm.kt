@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import com.garden.mobile.R
+import com.garden.mobile.domian.model.ValidationResults
 import com.garden.mobile.presentation.common.ButtonPrimaryEnable
 import com.garden.mobile.presentation.common.EmailField
 import com.garden.mobile.presentation.common.TopBarSimple
@@ -27,9 +28,8 @@ import com.garden.mobile.presentation.screen.auth.forgot.viewmodel.ForgotViewMod
 @Composable
 fun ForgotForm(
     viewModel: ForgotViewModel,
-    state: ForgotState.Data,
+    state: ForgotState.Form,
     onBackClick: () -> Unit,
-    onForgotClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -55,6 +55,7 @@ fun ForgotForm(
         )
         EmailField(
             state.email,
+            error = ValidationResults(status = false, message = null),
             imeAction = ImeAction.Done,
             onTextFieldChanged = { viewModel.onForgotChanged(it) },
         )
@@ -62,7 +63,7 @@ fun ForgotForm(
         ButtonPrimaryEnable(
             text = stringResource(R.string.retrieve),
             enable = state.isForgotEnable,
-            onClick = { onForgotClick() },
+            onClick = { viewModel.onForgotPassword() },
         )
     }
 }

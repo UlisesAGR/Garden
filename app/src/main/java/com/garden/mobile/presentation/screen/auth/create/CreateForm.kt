@@ -14,29 +14,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import com.garden.mobile.R
-import com.garden.mobile.presentation.common.ButtonPrimaryEnable
+import com.garden.mobile.presentation.common.ButtonPrimary
 import com.garden.mobile.presentation.common.CheckboxTexButton
 import com.garden.mobile.presentation.common.DividerText
 import com.garden.mobile.presentation.common.EmailField
-import com.garden.mobile.presentation.common.Field
 import com.garden.mobile.presentation.common.PasswordField
 import com.garden.mobile.presentation.common.SocialMediaList
 import com.garden.mobile.presentation.common.TopBarSimple
 import com.garden.mobile.presentation.navigation.interections.CreateInteractions
-import com.garden.mobile.presentation.navigation.interections.SocialMediaInteractions
+import com.garden.mobile.presentation.screen.auth.create.viewmodel.CreateFormEvent
 import com.garden.mobile.presentation.screen.auth.create.viewmodel.CreateState
 import com.garden.mobile.presentation.screen.auth.create.viewmodel.CreateViewModel
+import com.garden.mobile.ui.utils.TERMS
 
 @Composable
 fun CreateForm(
     viewModel: CreateViewModel,
-    state: CreateState.Data,
+    state: CreateState,
     createInteractions: CreateInteractions,
-    socialMediaInteractions: SocialMediaInteractions,
-) {
+) = with(state) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -61,53 +59,50 @@ fun CreateForm(
         )
         SocialMediaList(
             modifier = Modifier.fillMaxWidth(),
-            onFacebook = { socialMediaInteractions.onFacebookClick() },
-            onGoogle = { socialMediaInteractions.onGmailClick() },
+            onFacebook = {},
+            onGoogle = {},
         )
         DividerText(text = stringResource(R.string.or_continue_with))
-        Field(
-            text = state.name,
-            label = stringResource(R.string.name),
-            keyboardType = KeyboardType.Text,
-            imeAction = ImeAction.Next,
-            onTextFieldChanged = { name ->
-                viewModel.onCreateChanged(name, state.email, state.password, state.confirmPassword)
-            },
-        )
         EmailField(
-            state.email,
+            email,
+            error = emailError,
             imeAction = ImeAction.Next,
             onTextFieldChanged = { email ->
-                viewModel.onCreateChanged(state.name, email, state.password, state.confirmPassword)
+                viewModel.onEvent(CreateFormEvent.EmailChanged(email))
             },
         )
         PasswordField(
-            text = stringResource(R.string.password),
+            password,
+            error = passwordError,
+            hint = stringResource(R.string.password),
             imeAction = ImeAction.Next,
-            state.password,
             onTextFieldChanged = { password ->
-                viewModel.onCreateChanged(state.name, state.email, password, state.confirmPassword)
+                viewModel.onEvent(CreateFormEvent.PasswordChanged(password))
             },
-            supportingText = stringResource(R.string._6_character_password),
         )
         PasswordField(
-            text = stringResource(R.string.confirm_password),
+            repeatedPassword,
+            error = repeatedPasswordError,
+            hint = stringResource(R.string.repeated_password),
             imeAction = ImeAction.Done,
-            state.confirmPassword,
-            onTextFieldChanged = { confirmPassword ->
-                viewModel.onCreateChanged(state.name, state.email, state.password, confirmPassword)
+            onTextFieldChanged = { repeatedPassword ->
+                viewModel.onEvent(CreateFormEvent.RepeatedPasswordChanged(repeatedPassword))
             },
-            supportingText = stringResource(R.string._6_character_password),
         )
         CheckboxTexButton(
             textStart = stringResource(R.string.i_agree),
             textEnd = stringResource(R.string.terms_and_conditions),
-            onClick = { createInteractions.onTermsClick() },
+            error = termsError,
+            onTextClick = { createInteractions.onTermsClick(TERMS) },
+            onCheckedChange = { isAccepted ->
+                viewModel.onEvent(CreateFormEvent.AcceptTerms(isAccepted))
+            },
         )
-        ButtonPrimaryEnable(
+        ButtonPrimary(
             text = stringResource(R.string.create),
-            enable = state.isLoginEnable,
-            onClick = { createInteractions.onCreateClick() },
+            onClick = {
+                viewModel.onEvent(CreateFormEvent.ValidateForm)
+            },
         )
     }
 }

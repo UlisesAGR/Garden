@@ -92,6 +92,7 @@ dependencies {
     implementation(libs.bundles.androidx.room)
     ksp(libs.room.compiler)
     implementation(libs.coil.compose)
+    implementation(libs.konfetti.compose)
     //test
     testImplementation(libs.junit)
     testImplementation(libs.org.coroutines.test)
