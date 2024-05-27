@@ -32,7 +32,7 @@ import com.garden.mobile.ui.utils.TERMS
 @Composable
 fun CreateForm(
     viewModel: CreateViewModel,
-    state: CreateState,
+    state: CreateState.Data,
     createInteractions: CreateInteractions,
 ) = with(state) {
     Column(
@@ -101,7 +101,7 @@ fun CreateForm(
         ButtonPrimary(
             text = stringResource(R.string.create),
             onClick = {
-                viewModel.onEvent(CreateFormEvent.ValidateForm)
+                viewModel.validateForm(email, password, repeatedPassword, terms)
             },
         )
     }

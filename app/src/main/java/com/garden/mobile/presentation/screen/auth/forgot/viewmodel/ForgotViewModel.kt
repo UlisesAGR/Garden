@@ -1,33 +1,65 @@
 package com.garden.mobile.presentation.screen.auth.forgot.viewmodel
 
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.garden.mobile.domian.model.ValidationResults
+import com.garden.mobile.domian.usecase.validations.ValidateEmailUseCase
 import com.garden.mobile.domian.utils.Constants
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ForgotViewModel : ViewModel() {
+class ForgotViewModel @Inject constructor(
+    private val validateEmail: ValidateEmailUseCase,
+) : ViewModel() {
+
     private val _state = MutableLiveData<ForgotState>()
     val state: LiveData<ForgotState> = _state
 
-    fun onForgotChanged(email: String) {
-        _state.value = ForgotState.Form(
-            email,
-            isForgotEnable = isValidEmail(email),
-        )
-    }
+    fun onEvent(email: String) =
+        viewModelScope.launch {
+            _state.value = ForgotState.Data(email = email)
+        }
 
-    fun onForgotPassword() {
+    fun validateForm(email: String) =
+        viewModelScope.launch {
+            val emailResult = validateEmail(email)
+
+            val hasError = listOf(
+                emailResult,
+            ).any { !it.status }
+
+            if (hasError) {
+                _state.value = ForgotState.Data(
+                    emailError = emailResult,
+                )
+            } else {
+                onForgotPassword()
+            }
+        }
+
+    private fun onForgotPassword() {
         _state.value = ForgotState.Forgot
     }
 
-    fun onDismissErrorDialog() {
-        _state.value = ForgotState.Error(
-            status = false,
-            message = Constants.EMPTY_STRING,
-        )
-    }
+    /*private fun onShowErrorDialog() =
+        viewModelScope.launch {
+            _state.value = CreateState.Data(
+                results = ValidationResults(
+                    status = true,
+                    message = EMPTY_STRING,
+                )
+            )
+        }*/
 
-    private fun isValidEmail(email: String): Boolean =
-        Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    fun onDismissErrorDialog() =
+        viewModelScope.launch {
+            _state.value = ForgotState.Data(
+                results = ValidationResults(
+                    status = false,
+                    message = Constants.EMPTY_STRING,
+                )
+            )
+        }
 }

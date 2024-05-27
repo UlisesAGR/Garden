@@ -7,14 +7,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import com.garden.mobile.R
 import com.garden.mobile.domian.model.ValidationResults
-import com.garden.mobile.ui.utils.showToast
 
 @Composable
 fun CheckboxTexButton(
@@ -24,11 +21,6 @@ fun CheckboxTexButton(
     onTextClick: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
 ) {
-    val context = LocalContext.current
-    LaunchedEffect(key1 = context) {
-        context.showToast(error.message)
-    }
-
     Column {
         Row(
             modifier = Modifier

@@ -11,7 +11,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.garden.mobile.domian.utils.Constants.EMPTY_STRING
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.garden.mobile.presentation.common.BottomSheet
 import com.garden.mobile.presentation.common.ProgressIndicator
 import com.garden.mobile.presentation.screen.auth.forgot.viewmodel.ForgotState
@@ -20,14 +20,9 @@ import com.garden.mobile.presentation.screen.auth.forgot.viewmodel.ForgotViewMod
 @Composable
 fun ForgotScreen(
     onBackClick: () -> Unit,
-    viewModel: ForgotViewModel = ForgotViewModel(),
+    viewModel: ForgotViewModel = hiltViewModel(),
 ) {
-    val state = viewModel.state.observeAsState(
-        ForgotState.Form(
-            email = EMPTY_STRING,
-            isForgotEnable = false,
-        )
-    ).value
+    val state = viewModel.state.observeAsState().value
 
     Box(
         modifier = Modifier
@@ -41,24 +36,27 @@ fun ForgotScreen(
                     isLoading = state.isLoading,
                 )
 
-            is ForgotState.Form ->
+            is ForgotState.Data -> {
                 ForgotForm(
                     viewModel,
                     state,
                     onBackClick,
                 )
-
-            is ForgotState.Forgot -> {
-                //Add snackBar
-            }
-
-            is ForgotState.Error ->
                 BottomSheet(
-                    isShow = state.status,
+                    isShow = state.results.status,
                     icon = Icons.AutoMirrored.Filled.Message,
-                    text = state.message,
+                    text = state.results.message,
                     onButtonClick = { viewModel.onDismissErrorDialog() },
                 )
+            }
+
+            is ForgotState.Forgot -> {
+                onBackClick()
+            }
+
+            else -> {
+                onBackClick()
+            }
         }
     }
 }

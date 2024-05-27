@@ -5,5 +5,4 @@ sealed class CreateFormEvent {
     data class PasswordChanged(val password: String) : CreateFormEvent()
     data class RepeatedPasswordChanged(val repeatedPassword: String) : CreateFormEvent()
     data class AcceptTerms(val isAccepted: Boolean) : CreateFormEvent()
-    data object ValidateForm : CreateFormEvent()
 }

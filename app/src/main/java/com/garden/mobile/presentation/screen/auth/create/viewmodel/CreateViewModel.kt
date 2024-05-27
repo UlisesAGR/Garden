@@ -1,8 +1,7 @@
 package com.garden.mobile.presentation.screen.auth.create.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.garden.mobile.domian.model.ValidationResults
@@ -23,75 +22,75 @@ class CreateViewModel @Inject constructor(
     private val validateTermsUseCase: ValidateTermsUseCase,
 ) : ViewModel() {
 
-    var state by mutableStateOf(CreateState())
+    private val _state = MutableLiveData<CreateState>()
+    val state: LiveData<CreateState> = _state
 
     fun onEvent(event: CreateFormEvent) =
         viewModelScope.launch {
             when (event) {
                 is CreateFormEvent.EmailChanged ->
-                    state = state.copy(email = event.email)
+                    _state.value = CreateState.Data(email = event.email)
 
                 is CreateFormEvent.PasswordChanged ->
-                    state = state.copy(password = event.password)
+                    _state.value = CreateState.Data(password = event.password)
 
                 is CreateFormEvent.RepeatedPasswordChanged ->
-                    state = state.copy(repeatedPassword = event.repeatedPassword)
+                    _state.value = CreateState.Data(repeatedPassword = event.repeatedPassword)
 
                 is CreateFormEvent.AcceptTerms ->
-                    state = state.copy(terms = event.isAccepted)
+                    _state.value = CreateState.Data(terms = event.isAccepted)
 
-                is CreateFormEvent.ValidateForm -> validateForm()
             }
         }
 
-    private fun validateForm() =
-        viewModelScope.launch {
-            val emailResult =
-                validateEmail(state.email)
-            val passwordResult =
-                validatePassword(state.password)
-            val repeatedPasswordResult =
-                validateRepeatedPasswordUseCase(state.password, state.repeatedPassword)
-            val termsResult =
-                validateTermsUseCase(state.terms)
+    fun validateForm(
+        email: String,
+        password: String,
+        repeatedPassword: String,
+        terms: Boolean,
+    ) = viewModelScope.launch {
+        val emailResult = validateEmail(email)
+        val passwordResult = validatePassword(password)
+        val repeatedPasswordResult = validateRepeatedPasswordUseCase(password, repeatedPassword)
+        val termsResult = validateTermsUseCase(terms)
 
-            val hasError = listOf(
-                emailResult,
-                passwordResult,
-                repeatedPasswordResult,
-                termsResult,
-            ).any { !it.status }
+        val hasError = listOf(
+            emailResult,
+            passwordResult,
+            repeatedPasswordResult,
+            termsResult,
+        ).any { !it.status }
 
-            if (hasError) {
-                state = state.copy(
-                    emailError = emailResult,
-                    passwordError = passwordResult,
-                    repeatedPasswordError = repeatedPasswordResult,
-                    termsError = termsResult,
-                )
-            } else {
-                onCreateUser()
-            }
+        if (hasError) {
+            _state.value = CreateState.Data(
+                emailError = emailResult,
+                passwordError = passwordResult,
+                repeatedPasswordError = repeatedPasswordResult,
+                termsError = termsResult,
+            )
+        } else {
+            onCreateUser()
         }
-
-    private fun onCreateUser() {
-        onShowErrorDialog()
     }
 
-    private fun onShowErrorDialog() =
+    private fun onCreateUser() {
+        _state.value = CreateState.Created
+    }
+
+    /*private fun onShowErrorDialog() =
         viewModelScope.launch {
-            state = state.copy(
-                errorDialog = ValidationResults(
+            _state.value = CreateState.Data(
+                results = ValidationResults(
                     status = true,
                     message = EMPTY_STRING,
                 )
             )
-        }
+        }*/
 
     fun onDismissErrorDialog() =
         viewModelScope.launch {
-            state = state.copy(
-                errorDialog = ValidationResults(
+            _state.value = CreateState.Data(
+                results = ValidationResults(
                     status = false,
                     message = EMPTY_STRING,
                 )

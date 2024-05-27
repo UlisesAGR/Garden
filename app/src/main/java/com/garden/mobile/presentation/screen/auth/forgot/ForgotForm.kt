@@ -18,8 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import com.garden.mobile.R
-import com.garden.mobile.domian.model.ValidationResults
-import com.garden.mobile.presentation.common.ButtonPrimaryEnable
+import com.garden.mobile.presentation.common.ButtonPrimary
 import com.garden.mobile.presentation.common.EmailField
 import com.garden.mobile.presentation.common.TopBarSimple
 import com.garden.mobile.presentation.screen.auth.forgot.viewmodel.ForgotState
@@ -28,9 +27,9 @@ import com.garden.mobile.presentation.screen.auth.forgot.viewmodel.ForgotViewMod
 @Composable
 fun ForgotForm(
     viewModel: ForgotViewModel,
-    state: ForgotState.Form,
+    state: ForgotState.Data,
     onBackClick: () -> Unit,
-) {
+) = with(state) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,16 +53,19 @@ fun ForgotForm(
             text = stringResource(R.string.an_email_will_be_sent_to_recover_your_password),
         )
         EmailField(
-            state.email,
-            error = ValidationResults(status = false, message = null),
-            imeAction = ImeAction.Done,
-            onTextFieldChanged = { viewModel.onForgotChanged(it) },
+            email,
+            error = emailError,
+            imeAction = ImeAction.Next,
+            onTextFieldChanged = { email ->
+                viewModel.onEvent(email)
+            },
         )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space)))
-        ButtonPrimaryEnable(
-            text = stringResource(R.string.retrieve),
-            enable = state.isForgotEnable,
-            onClick = { viewModel.onForgotPassword() },
+        ButtonPrimary(
+            text = stringResource(R.string.create),
+            onClick = {
+                viewModel.validateForm(email)
+            },
         )
     }
 }
