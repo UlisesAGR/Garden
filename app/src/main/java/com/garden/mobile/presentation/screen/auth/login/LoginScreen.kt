@@ -7,34 +7,23 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.garden.mobile.presentation.common.BottomSheet
 import com.garden.mobile.presentation.common.ProgressIndicator
 import com.garden.mobile.presentation.navigation.interections.LoginInteractions
-import com.garden.mobile.presentation.navigation.interections.SocialMediaInteractions
 import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginState
 import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
     loginInteractions: LoginInteractions,
-    viewModel: LoginViewModel = LoginViewModel(),
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
-    val state = viewModel.state.observeAsState(
-        LoginState.Data(
-            email = "",
-            password = "",
-            isLoginEnable = false,
-        )
-    ).value
-    var show by rememberSaveable { mutableStateOf(true) }
+    val state = viewModel.state.observeAsState().value
 
     Box(
         modifier = Modifier
@@ -42,30 +31,32 @@ fun LoginScreen(
             .verticalScroll(rememberScrollState())
     ) {
         when (state) {
-            is LoginState.Loading ->
+            is LoginState.Loading -> {
                 ProgressIndicator(
                     modifier = Modifier.align(Alignment.Center),
                     isLoading = state.isLoading,
                 )
+            }
 
-            is LoginState.Data ->
+            is LoginState.Data -> {
                 LoginForm(
                     viewModel,
                     state,
-                    loginInteractions,
-                    socialMediaInteractions = SocialMediaInteractions(
-                        onFacebookClick = {},
-                        onGmailClick = {},
-                    )
+                    loginInteractions = loginInteractions
                 )
-
-            is LoginState.Error ->
                 BottomSheet(
-                    isShow = show,
+                    isShow = state.results.status,
                     icon = Icons.AutoMirrored.Filled.Message,
-                    text = state.message,
-                    onButtonClick = { show = false },
+                    text = state.results.message,
+                    onButtonClick = { viewModel.onDismissErrorDialog() },
                 )
+            }
+
+            is LoginState.Login -> {
+                loginInteractions.onCreateClick()
+            }
+
+            else -> throw AssertionError()
         }
     }
 }

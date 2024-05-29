@@ -62,7 +62,7 @@ fun ForgotForm(
         )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space)))
         ButtonPrimary(
-            text = stringResource(R.string.create),
+            text = stringResource(R.string.forgot_password),
             onClick = {
                 viewModel.validateForm(email)
             },

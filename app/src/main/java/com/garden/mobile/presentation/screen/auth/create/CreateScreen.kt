@@ -59,13 +59,11 @@ fun CreateScreen(
                 )
             }
 
-            CreateState.Created -> {
+            is CreateState.Created -> {
                 createInteractions.onBackClick()
             }
 
-            else -> {
-                createInteractions.onBackClick()
-            }
+            else -> throw AssertionError()
         }
     }
 }

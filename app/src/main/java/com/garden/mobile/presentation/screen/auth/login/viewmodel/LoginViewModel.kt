@@ -1,28 +1,77 @@
 package com.garden.mobile.presentation.screen.auth.login.viewmodel
 
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.garden.mobile.domian.model.ValidationResults
+import com.garden.mobile.domian.usecase.validations.ValidateEmailUseCase
+import com.garden.mobile.domian.usecase.validations.ValidatePasswordUseCase
+import com.garden.mobile.domian.utils.Constants
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val validateEmail: ValidateEmailUseCase,
+    private val validatePassword: ValidatePasswordUseCase,
+) : ViewModel() {
+
     private val _state = MutableLiveData<LoginState>()
     val state: LiveData<LoginState> = _state
 
-    fun onLoginChanged(
+    fun onEvent(event: LoginFormEvent) =
+        viewModelScope.launch {
+            when (event) {
+                is LoginFormEvent.EmailChanged ->
+                    _state.value = LoginState.Data(email = event.email)
+
+                is LoginFormEvent.PasswordChanged ->
+                    _state.value = LoginState.Data(password = event.password)
+            }
+        }
+
+    fun validateForm(
         email: String,
         password: String,
-    ) {
-        _state.value = LoginState.Data(
-            email,
-            password,
-            isLoginEnable = isValidEmail(email) && isValidPassword(password),
-        )
+    ) = viewModelScope.launch {
+        val emailResult = validateEmail(email)
+        val passwordResult = validatePassword(password)
+        val hasError = listOf(
+            emailResult,
+            passwordResult,
+        ).any { !it.status }
+
+        if (hasError) {
+            _state.value = LoginState.Data(
+                emailError = emailResult,
+                passwordError = passwordResult,
+            )
+        } else {
+            onLoginUser()
+        }
     }
 
-    private fun isValidEmail(email: String): Boolean =
-        Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun onLoginUser() {
+        _state.value = LoginState.Login
+    }
 
-    private fun isValidPassword(password: String): Boolean =
-        password.length > 5
+    /*private fun onShowErrorDialog() =
+    viewModelScope.launch {
+        _state.value = CreateState.Data(
+            results = ValidationResults(
+                status = true,
+                message = EMPTY_STRING,
+            )
+        )
+    }*/
+
+    fun onDismissErrorDialog() =
+        viewModelScope.launch {
+            _state.value = LoginState.Data(
+                results = ValidationResults(
+                    status = false,
+                    message = Constants.EMPTY_STRING,
+                )
+            )
+        }
 }

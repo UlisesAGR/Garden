@@ -18,7 +18,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import com.garden.mobile.R
 import com.garden.mobile.domian.model.ValidationResults
-import com.garden.mobile.presentation.common.ButtonPrimaryEnable
+import com.garden.mobile.presentation.common.ButtonPrimary
 import com.garden.mobile.presentation.common.ButtonText
 import com.garden.mobile.presentation.common.ButtonTextColor
 import com.garden.mobile.presentation.common.DividerText
@@ -26,7 +26,7 @@ import com.garden.mobile.presentation.common.EmailField
 import com.garden.mobile.presentation.common.PasswordField
 import com.garden.mobile.presentation.common.SocialMediaList
 import com.garden.mobile.presentation.navigation.interections.LoginInteractions
-import com.garden.mobile.presentation.navigation.interections.SocialMediaInteractions
+import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginFormEvent
 import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginState
 import com.garden.mobile.presentation.screen.auth.login.viewmodel.LoginViewModel
 
@@ -35,8 +35,7 @@ fun LoginForm(
     viewModel: LoginViewModel,
     state: LoginState.Data,
     loginInteractions: LoginInteractions,
-    socialMediaInteractions: SocialMediaInteractions,
-) {
+) = with(state) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -60,24 +59,29 @@ fun LoginForm(
             state.email,
             error = ValidationResults(status = false, message = null),
             imeAction = ImeAction.Next,
-            onTextFieldChanged = { viewModel.onLoginChanged(it, state.password) },
+            onTextFieldChanged = { email ->
+                viewModel.onEvent(LoginFormEvent.EmailChanged(email))
+            },
         )
         PasswordField(
             state.password,
             error = ValidationResults(status = false, message = null),
             hint = stringResource(R.string.password),
             imeAction = ImeAction.Done,
-            onTextFieldChanged = { viewModel.onLoginChanged(state.email, it) },
+            onTextFieldChanged = { password ->
+                viewModel.onEvent(LoginFormEvent.PasswordChanged(password))
+            },
         )
         ButtonText(
             modifier = Modifier.align(Alignment.End),
             text = stringResource(R.string.forgot_password),
             onClick = { loginInteractions.onForgotClick() },
         )
-        ButtonPrimaryEnable(
+        ButtonPrimary(
             text = stringResource(R.string.login),
-            enable = state.isLoginEnable,
-            onClick = { loginInteractions.onGardenClick() },
+            onClick = {
+                viewModel.validateForm(email, password)
+            },
         )
         DividerText(
             modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small)),
@@ -85,8 +89,8 @@ fun LoginForm(
         )
         SocialMediaList(
             modifier = Modifier.fillMaxWidth(),
-            onFacebook = { socialMediaInteractions.onFacebookClick() },
-            onGoogle = { socialMediaInteractions.onGmailClick() },
+            onFacebook = {},
+            onGoogle = {},
         )
         ButtonTextColor(
             modifier = Modifier.fillMaxWidth(),

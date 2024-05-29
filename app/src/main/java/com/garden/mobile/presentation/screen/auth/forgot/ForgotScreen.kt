@@ -54,9 +54,7 @@ fun ForgotScreen(
                 onBackClick()
             }
 
-            else -> {
-                onBackClick()
-            }
+            else -> throw AssertionError()
         }
     }
 }
